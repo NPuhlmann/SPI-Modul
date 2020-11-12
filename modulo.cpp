@@ -20,21 +20,18 @@ int mod(int number, int modul)
         {
             number -= modul;
         }
-        int solution = modulIsNegativ ? (number * -1) : number;
-        return solution;
+
+        return number;
     }
     else
     {
+
         if (modulIsNegativ)
         {
-            return mod(number * -1, modul * -1);
+            return mod(number * -1, modul * -1) * -1;
         }
-        while (number < 0)
-        {
-            number += modul;
-        }
-        int solution = modulIsNegativ ? (number * -1) : number;
-        return solution;
+        int solution = mod(number * -1, modul);
+        return solution * -1;
     }
 }
 
