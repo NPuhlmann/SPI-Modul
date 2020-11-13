@@ -50,35 +50,40 @@ void prime(long long num)
 
 int mod(int number, int modul)
 {
-    bool modulIsNegativ = false;
-    if (number == modul || number == (modul * -1) || (number * -1) == modul)
-    {
-        return 0;
-    }
-    if (modul < 0)
-    {
-        modulIsNegativ = true;
-        modul = modul * -1;
-    }
-    if (number > 0)
-    {
-        while (number >= modul)
-        {
-            number -= modul;
-        }
+    // bool modulIsNegativ = false;
+    // if (number == modul || number == (modul * -1) || (number * -1) == modul)
+    // {
+    //     return 0;
+    // }
+    // if (modul < 0)
+    // {
+    //     modulIsNegativ = true;
+    //     modul = modul * -1;
+    // }
+    // if (number > 0)
+    // {
+    //     while (number >= modul)
+    //     {
+    //         number -= modul;
+    //     }
 
-        return number;
-    }
-    else
-    {
+    //     return number;
+    // }
+    // else
+    // {
 
-        if (modulIsNegativ)
-        {
-            return mod(number * -1, modul * -1) * -1;
-        }
-        int solution = mod(number * -1, modul);
-        return solution * -1;
-    }
+    //     if (modulIsNegativ)
+    //     {
+    //         return mod(number * -1, modul * -1) * -1;
+    //     }
+    //     int solution = mod(number * -1, modul);
+    //     return solution * -1;
+    // }
+
+    int result = 0;
+    int devisor = number / modul;
+    result = number - modul * devisor;
+    return result;
 }
 
 int main()
