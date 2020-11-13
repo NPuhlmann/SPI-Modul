@@ -1,6 +1,64 @@
 #include <iostream>
+#include <stdio.h>
+#include <cmath>
+#include <tuple>
 
 using namespace std;
+
+void findFactors(long long n)
+{
+    long long x = 0;
+
+    while (true)
+    {
+        x++;
+        long long y = 0;
+        while (y <= x)
+        {
+            y++;
+            if (n == pow(x, 2) - pow(y, 2))
+            {
+                cout << "Factors are: " << x << " and " << y << endl;
+                return;
+            }
+        }
+    }
+}
+
+tuple<int, int> prime(int num)
+{
+    // since fermat's factorization applicable
+    // for odd positive integers only
+    if (num <= 0)
+    {
+        return tuple<int, int>{num, num};
+    }
+
+    // check if n is a even number
+    if ((num & 1) == 0)
+    {
+        return tuple<int, int>{num / 2, 2};
+    }
+
+    int x = ceil(sqrt(num));
+
+    if (pow(x, x) == num)
+    {
+        return tuple<int, int>{x, x};
+    }
+
+    int r = pow(x, 2) - num;
+    while (r % r != 0)
+    {
+        r = r + 2 * x + 1;
+        x += 1;
+    }
+    int y = sqrt(r);
+    int a = x + y;
+    int b = x - y;
+
+    return tuple<int, int>{a, b};
+}
 
 int mod(int number, int modul)
 {
@@ -37,27 +95,42 @@ int mod(int number, int modul)
 
 int main()
 {
-    int num, modul;
+    findFactors(56);
+    int num, modul, a, b;
     string answer;
-    cout << "Geben Sie eine Ganzzahl ein: ";
-    cin >> num;
-    cout << "Geben Sie den Modul ein: ";
-    cin >> modul;
-    cout << "Ergebnis: " << mod(num, modul) << endl;
-    cout << "wanna see Solutions? y/n : ";
+    cout << "Primfaktor? y/n : ";
     cin >> answer;
     int compare = answer.compare("y");
     if (compare == 0)
     {
-        cout << "87654 mod 13 =" << 87654 % 13 << endl;
-        cout << "-87654 mod 13 =" << -87654 % 13 << endl;
-        cout << "87654 mod -13 =" << 87654 % -13 << endl;
-        cout << "-87654 mod -13 =" << -87654 % -13 << endl;
-        cout << "10 mod 10 =" << 10 % 10 << endl;
+        cout << "Geben Sie eine Ganzzahl ein: ";
+        cin >> num;
+        std::tie(a, b) = prime(num);
+        cout << "Ergebnis: " << a << ", " << b << endl;
     }
     else
     {
-        cout << "Bye!" << endl;
+        cout << "Geben Sie eine Ganzzahl ein: ";
+        cin >> num;
+        cout << "Geben Sie den Modul ein: ";
+        cin >> modul;
+        cout << "Ergebnis: " << mod(num, modul) << endl;
+        cout << "wanna see Solutions? y/n : ";
+        cin >> answer;
+        int compare = answer.compare("y");
+        if (compare == 0)
+        {
+            cout << "87654 mod 13 =" << 87654 % 13 << endl;
+            cout << "-87654 mod 13 =" << -87654 % 13 << endl;
+            cout << "87654 mod -13 =" << 87654 % -13 << endl;
+            cout << "-87654 mod -13 =" << -87654 % -13 << endl;
+            cout << "10 mod 10 =" << 10 % 10 << endl;
+        }
+        else
+        {
+            cout << "Bye!" << endl;
+        }
     }
+    cout << "Bye!" << endl;
     return 0;
 }
